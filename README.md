@@ -14,6 +14,8 @@ This is a simple yet fully functional **calculator web application** built using
 - **📱 Responsive Design:** Mobile-friendly layout for a seamless user experience across devices.
 
 ---
+## **Screenshots:**
+![image](https://github.com/user-attachments/assets/8b164d0a-926a-4595-bd02-ebde009819bd)
 
 ## **Technologies Used:**
 
