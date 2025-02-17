@@ -26,8 +26,9 @@ This is a simple yet fully functional **calculator web application** built using
 - **Basic Input Validation** - Ensures proper input format before calculation
 
 ## **Screenshots:**
-<img src="https://github.com/user-attachments/assets/8b164d0a-926a-4595-bd02-ebde009819bd" width="150" alt="Calculator Screenshot">
-
+<div style="text-align: center;">
+  <img src="https://github.com/user-attachments/assets/8b164d0a-926a-4595-bd02-ebde009819bd" width="200" alt="Calculator Screenshot">
+</div>
 ---
 
 ## **Getting Started:**
