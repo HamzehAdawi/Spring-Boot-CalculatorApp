@@ -1,0 +1,113 @@
+body {
+    background-color: rgba(19, 19, 19, 0.89);
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 80px;
+    font-family: Arial, serif;
+}
+
+#input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#number {
+    background-color: rgba(19, 19, 19, 0.58);
+    border: 0 solid;
+    border-radius: 180px;
+    height: 100px;
+    margin-bottom: 5px;
+    width: 410px;
+    font-size: 40px;
+    color: #D4D4D2;
+    padding-left: 43px;
+    padding-right: 43px;
+}
+
+#firstRow, #secondRow, #thirdRow, #fourthRow, #fifth_Row {
+    width: 440px;
+    display: flex;
+    margin: auto;
+    padding: 5px;
+}
+
+#zero {
+    border: 0 solid #505050;
+    background-color: #505050;
+    border-radius: 220px;
+    color: white;
+    height: 100px;
+    font-size: 45px;
+    font-family: Arial, serif;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 210px;
+}
+
+.buttons {
+    border: 0 solid #505050;
+    background-color: #505050;
+    border-radius: 220px;
+    color: white;
+    height: 100px;
+    width: 100px;
+    font-size: 45px;
+    font-family: Arial, serif;
+    margin-left: 5px;
+    margin-right: 5px;
+
+}
+
+.calc_button {
+    color: white;
+    border: 0 solid;
+    background-color: #ffa500;
+    border-radius: 220px;
+    height: 100px;
+    width: 100px;
+    font-size: 45px;
+    font-family: Arial, serif;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.buttons_grey {
+    color: black;
+    background-color: #D4D4D2;
+    border: 0 solid #D4D4D2;
+    border-radius: 220px;
+    height: 100px;
+    width: 100px;
+    font-size: 45px;
+    font-family: Arial, serif;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#equal {
+    border: 0 solid #505050;
+    background-color: #505050;
+    border-radius: 220px;
+    color: white;
+    height: 100px;
+    width: 210px;
+    font-size: 45px;
+    font-family: Arial, serif;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+#result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
