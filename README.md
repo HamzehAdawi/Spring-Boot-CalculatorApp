@@ -14,8 +14,6 @@ This is a simple yet fully functional **calculator web application** built using
 - **📱 Responsive Design:** Mobile-friendly layout for a seamless user experience across devices.
 
 ---
-## **Screenshots:**
-<img src="https://github.com/user-attachments/assets/8b164d0a-926a-4595-bd02-ebde009819bd" width="150" alt="Calculator Screenshot">
 
 ## **Technologies Used:**
 
@@ -26,6 +24,9 @@ This is a simple yet fully functional **calculator web application** built using
 - **Spring MVC** - Request-response management
 - **Model-View-Controller (MVC)** - Structured code architecture
 - **Basic Input Validation** - Ensures proper input format before calculation
+
+## **Screenshots:**
+<img src="https://github.com/user-attachments/assets/8b164d0a-926a-4595-bd02-ebde009819bd" width="150" alt="Calculator Screenshot">
 
 ---
 
