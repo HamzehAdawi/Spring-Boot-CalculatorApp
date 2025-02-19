@@ -3,7 +3,7 @@ package com.CalculationAPP.CalculationAPP.Service;
 import com.CalculationAPP.CalculationAPP.Model.CalculatorModel;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+
 import java.util.Objects;
 
 
@@ -83,14 +83,14 @@ public class CalculatorService {
         }
 
         else if (numbers.length == 2 && !calcModel.getCurrentSign().isBlank()) {
-            calcModel.setX(Double.parseDouble(numbers[0]));
-            calcModel.setY(Double.parseDouble(numbers[0]));
+            calcModel.setX(Double.parseDouble(numbers[i-1]));
+            calcModel.setY(Double.parseDouble(numbers[i-1]));
             calcModel.setLastUsedSign(calcModel.getCurrentSign());
         }
 
         else {
-            calcModel.setX(Double.parseDouble(numbers[0]));
-            calcModel.setY(Double.parseDouble(numbers[2]));
+            calcModel.setX(Double.parseDouble(numbers[i-1]));
+            calcModel.setY(Double.parseDouble(numbers[i+1]));
             calcModel.setLastUsedSign(calcModel.getCurrentSign());
         }
     }
@@ -168,7 +168,7 @@ public class CalculatorService {
                     return Math.round((Double.parseDouble(numbers[0]))) + " " + calcModel.getCurrentSign().replaceAll("\\\\", "") + " " + Math.round(Double.parseDouble(numbers[2]));
                 }
                 else {
-                    return ( Math.round((Double.parseDouble(numbers[0]))) + " " + calcModel.getCurrentSign().replaceAll("\\\\", "") + " " + Math.round(Double.parseDouble(numbers[2]) * -1));
+                    return ( Math.round((Double.parseDouble(numbers[i-1]))) + " " + calcModel.getCurrentSign().replaceAll("\\\\", "") + " " + Math.round(Double.parseDouble(numbers[i+1]) * -1));
                 }
             }
 
@@ -178,16 +178,14 @@ public class CalculatorService {
         return calcModel.getCalculatorInput();
     }
 
-    public boolean checkVaildinput(String springAns) {
+    public boolean checkValidInput(String springAns) {
         String operatorRegex = "[+\\-/%x]";
-        String doubleIntRegex = "-?[1-9]\\d*|0|^[+-]?(([1-9]\\d*)|0)(\\.\\d+)?";
+        String doubleIntRegex = "-?[0-9]\\d*|0|^[+-]?(([0-9]\\d*)|0)(\\.\\d+)?";
 
-        if (springAns.matches(doubleIntRegex + " " + operatorRegex + " " + doubleIntRegex + " ") ||
+
+        return springAns.matches(doubleIntRegex + " " + operatorRegex + " " + doubleIntRegex + " ") ||
                 springAns.matches(doubleIntRegex + " " + operatorRegex + " ") ||
-                springAns.matches(doubleIntRegex)) {
-            return true;
-        }
-        return false;
+                springAns.matches(doubleIntRegex);
     }
 
 }

@@ -52,7 +52,7 @@ public class CalculatorAppController {
     @PostMapping("/gotNumbers")
     public String calculatorSendResult(@RequestParam(name = "stringNums") String springAns, Model model) {
 
-        if (calculatorService.checkVaildinput(springAns)) {
+        if (calculatorService.checkValidInput(springAns)) {
 
             calculatorService.parseNums(springAns);
             calculatorService.doCalc();
@@ -60,6 +60,7 @@ public class CalculatorAppController {
             return "redirect:/?stringNums=" + calculatorModel.getResult();
 
         }
+
         return "index";
 
     }
