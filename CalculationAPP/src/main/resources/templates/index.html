@@ -20,9 +20,9 @@
     </div>
 
     <span id="firstRow">
-        <button type="submit" class="buttons_grey" id="reset" formaction="/clear" formmethod="get">C</button>
-        <button type= submit id ="+/-" class="buttons_grey" formaction="/plus-minus" formmethod="get">+/-</button>
-        <button id="%" class="buttons_grey" type="button" onclick="document.getElementById('number').value +=' % ';">%</button>
+        <button type="submit" id="reset" formaction="/clear" formmethod="get">C</button>
+        <button type= submit id ="+/-" class="calc_button" formaction="/plus-minus" formmethod="get">+/-</button>
+        <button id="%" class="calc_button" type="button" onclick="document.getElementById('number').value +=' % ';">%</button>
         <button id="÷" class="calc_button" type="button" onclick="document.getElementById('number').value +=' / ';">÷</button>
     </span>
 
@@ -49,7 +49,9 @@
     </span>
 
     <span id="fifth_Row">
-        <button id ="zero" type="button" onclick="document.getElementById('number').value +='0';">0</button>
+        <button id ="zero" type="button" class="buttons" onclick="document.getElementById('number').value +='0';">0</button>
+        <button id ="double_zero" type="button" class="buttons" onclick="document.getElementById('number').value +='00';">00</button>
+        <button id ="dot" type="button" class="buttons" onclick="document.getElementById('number').value +='.';">.</button>
         <button type="submit" id="equal" name="calculation" >=</button>
     </span>
 

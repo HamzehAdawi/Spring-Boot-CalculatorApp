@@ -138,7 +138,7 @@ public class CalculatorService {
             }
 
             else {
-                calcModel.setResult(String.valueOf(Math.round( (Double.parseDouble(calcModel.getResult()) * 100000000000.0)) / 100000000000.0 ));
+                calcModel.setResult(String.valueOf(Math.round( (Double.parseDouble(calcModel.getResult()) * 1000000000.0)) / 1000000000.0 ));
             }
         } catch (NumberFormatException e) {
             System.err.println("Received invalid input");
