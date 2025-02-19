@@ -27,9 +27,8 @@ This is a simple yet fully functional **calculator web application** built using
 
 ## **Screenshots:**
 <div style="text-align: center;">
-  <img src="https://github.com/user-attachments/assets/8b164d0a-926a-4595-bd02-ebde009819bd" width="200" alt="Calculator Screenshot">
+  <img src="https://github.com/user-attachments/assets/bdf73e37-d44f-45d6-b9e8-946ccf090c5b" width="200" alt="Calculator Screenshot">
 </div>
-![image](https://github.com/user-attachments/assets/bdf73e37-d44f-45d6-b9e8-946ccf090c5b)
 
 ## **Getting Started:**
 
