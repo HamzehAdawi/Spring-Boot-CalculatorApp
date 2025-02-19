@@ -3,14 +3,19 @@ package com.CalculationAPP.CalculationAPP.Service;
 import com.CalculationAPP.CalculationAPP.Model.CalculatorModel;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Objects;
+
+
 @Service
 public class CalculatorService {
 
     private final CalculatorModel calcModel;
+    private final CalculatorModel calculatorModel;
 
-    CalculatorService(CalculatorModel calcModel) {
+    CalculatorService(CalculatorModel calcModel, CalculatorModel calculatorModel) {
         this.calcModel = calcModel;
-
+        this.calculatorModel = calculatorModel;
     }
 
 
@@ -57,17 +62,16 @@ public class CalculatorService {
     public void parseNums(String calculatorInput) {
 
         calcModel.setCalculatorInput(calculatorInput);
-        if (calculatorInput.isEmpty() || (calculatorInput.length() == 1) && calcModel.getLastUsedSign() == null) {
+        Integer i = findSymbol(calculatorInput);
+        String[] numbers = calculatorInput.split(" ");
+
+        if (calculatorInput.isEmpty() || numbers.length <= 1 && calcModel.getLastUsedSign() == null) {
             calcModel.setResult(calculatorInput);
             return;
         }
 
 
-        String symbol = findSymbol(calculatorInput);
-
-
-        String[] numbers = calculatorInput.split(symbol);
-        if (numbers.length < 2 && symbol.isBlank()) {
+        if (numbers.length <= 2 && calcModel.getCurrentSign().isBlank()) {
 
             if (calcModel.getLastUsedSign().isEmpty()) {
                 calcModel.setResult(calculatorInput);
@@ -78,38 +82,49 @@ public class CalculatorService {
             }
         }
 
-        else if (numbers.length < 2 && !symbol.isBlank()) {
+        else if (numbers.length == 2 && !calcModel.getCurrentSign().isBlank()) {
             calcModel.setX(Double.parseDouble(numbers[0]));
             calcModel.setY(Double.parseDouble(numbers[0]));
-            calcModel.setLastUsedSign(symbol);
+            calcModel.setLastUsedSign(calcModel.getCurrentSign());
         }
 
         else {
             calcModel.setX(Double.parseDouble(numbers[0]));
-            calcModel.setY(Double.parseDouble(numbers[1]));
-            calcModel.setLastUsedSign(symbol);
+            calcModel.setY(Double.parseDouble(numbers[2]));
+            calcModel.setLastUsedSign(calcModel.getCurrentSign());
         }
     }
 
-    private String findSymbol(String calculatorInput) {
-        if (calculatorInput.contains("+")) {
-            return "\\+";
+    private Integer findSymbol(String numbers) {
+
+        String[] numbersArray = numbers.split(" ");
+
+        for (int i = 0; i < numbersArray.length; i++) {
+            switch (numbersArray[i]) {
+                case "+" -> {
+                    calcModel.setCurrentSign("\\+");
+                    return i;
+                }
+                case "-" -> {
+                    calcModel.setCurrentSign("-");
+                    return i;
+                }
+                case "x" -> {
+                    calcModel.setCurrentSign("x");
+                    return i;
+                }
+                case "/" -> {
+                    calcModel.setCurrentSign("/");
+                    return i;
+                }
+                case "%" -> {
+                    calcModel.setCurrentSign("%");
+                    return i;
+                }
+            }
         }
-        else if (calculatorInput.contains("-")) {
-            return "-";
-        }
-        else if (calculatorInput.contains("x")) {
-            return "x";
-        }
-        else if (calculatorInput.contains("/")) {
-            return "/";
-        }
-        else if (calculatorInput.contains("%")) {
-            return "%";
-        }
-        else {
-            return " ";
-        }
+        calcModel.setCurrentSign(" ");
+        return -1;
     }
 
     private void formatResult() {
@@ -117,22 +132,59 @@ public class CalculatorService {
             if (calcModel.getResult() == null || calcModel.getResult().isEmpty()) {
                 calcModel.setResult("");
             }
+
+            if ((Double.parseDouble(calcModel.getResult()) % 1) == 0) {
+                calcModel.setResult(String.valueOf(Math.round(Double.parseDouble(calcModel.getResult()))));
+            }
+
             else {
-                if ((Double.parseDouble(calcModel.getResult()) % 1) == 0) {
-                    calcModel.setResult(String.valueOf(Math.round(Double.parseDouble(calcModel.getResult()))));
-                }
+                calcModel.setResult(String.valueOf(Math.round( (Double.parseDouble(calcModel.getResult()) * 100000000000.0)) / 100000000000.0 ));
             }
         } catch (NumberFormatException e) {
             System.err.println("Received invalid input");
         }
     }
 
+    public String convert() {
+        try {
+            Integer i = findSymbol(calculatorModel.getCalculatorInput());
+            String[] numbers = calculatorModel.getCalculatorInput().split(" ");
+
+            if (numbers.length < 1) {
+                System.err.println("Nothing to convert with +/-");
+                return calcModel.getCalculatorInput();
+            }
+
+            else if (numbers.length == 1) {
+                return Math.round(Double.parseDouble(numbers[0]) * -1) + "";
+            }
+
+            else if(numbers.length == 2) {
+                return (Math.round(Double.parseDouble(numbers[0]) * -1) + " " + calcModel.getCurrentSign().replaceAll("\\s+", "").replaceAll("\\\\", "") + " ");
+            }
+            else {
+                if (Objects.equals(calcModel.getCurrentSign(), "-")) {
+                    calcModel.setCurrentSign("+");
+                    return Math.round((Double.parseDouble(numbers[0]))) + " " + calcModel.getCurrentSign().replaceAll("\\\\", "") + " " + Math.round(Double.parseDouble(numbers[2]));
+                }
+                else {
+                    return ( Math.round((Double.parseDouble(numbers[0]))) + " " + calcModel.getCurrentSign().replaceAll("\\\\", "") + " " + Math.round(Double.parseDouble(numbers[2]) * -1));
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            System.err.println("Nothing to convert with +/-");
+        }
+        return calcModel.getCalculatorInput();
+    }
+
     public boolean checkVaildinput(String springAns) {
         String operatorRegex = "[+\\-/%x]";
+        String doubleIntRegex = "-?[1-9]\\d*|0|^[+-]?(([1-9]\\d*)|0)(\\.\\d+)?";
 
-        if (springAns.matches("\\d+" + operatorRegex + "\\d+") ||
-                springAns.matches("\\d+" + operatorRegex) ||
-                springAns.matches("\\d+")) {
+        if (springAns.matches(doubleIntRegex + " " + operatorRegex + " " + doubleIntRegex + " ") ||
+                springAns.matches(doubleIntRegex + " " + operatorRegex + " ") ||
+                springAns.matches(doubleIntRegex)) {
             return true;
         }
         return false;

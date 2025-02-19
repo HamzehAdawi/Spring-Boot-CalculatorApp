@@ -39,6 +39,16 @@ public class CalculatorAppController {
         return "index";
     }
 
+    @GetMapping("/plus-minus")
+    public String plusMinus(@RequestParam (name = "stringNums", required = false) String springAns, Model model) {
+       if (springAns != null) {
+           calculatorModel.setCalculatorInput(springAns);
+           String newIn = calculatorService.convert();
+           model.addAttribute("stringNums", newIn);
+       }
+       return "index";
+    }
+
     @PostMapping("/gotNumbers")
     public String calculatorSendResult(@RequestParam(name = "stringNums") String springAns, Model model) {
 

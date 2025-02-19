@@ -10,7 +10,7 @@ public class CalculatorModel {
     private String result;
     private String calculatorInput;
     private String lastUsedSign;
-
+    private String currentSign;
 
     public String getResult() { return String.valueOf(result);}
 
@@ -30,7 +30,9 @@ public class CalculatorModel {
 
     public void setCalculatorInput(String calculatorInput) { this.calculatorInput = calculatorInput;}
 
-    public void setLastUsedSign(String lastUsedSign) {
-        this.lastUsedSign = lastUsedSign;
-    }
+    public void setLastUsedSign(String lastUsedSign) { this.lastUsedSign = lastUsedSign;}
+
+    public String getCurrentSign() {return currentSign;}
+
+    public void setCurrentSign(String currentSign) {this.currentSign = currentSign;}
 }
