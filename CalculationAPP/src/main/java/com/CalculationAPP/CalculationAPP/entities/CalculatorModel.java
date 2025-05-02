@@ -1,4 +1,4 @@
-package com.CalculationAPP.CalculationAPP.Model;
+package com.CalculationAPP.CalculationAPP.entities;
 
 import org.springframework.stereotype.Component;
 

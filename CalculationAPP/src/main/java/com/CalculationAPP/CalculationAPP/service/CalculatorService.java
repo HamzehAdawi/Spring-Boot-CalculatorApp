@@ -1,14 +1,13 @@
-package com.CalculationAPP.CalculationAPP.Service;
+package com.CalculationAPP.CalculationAPP.service;
 
-import com.CalculationAPP.CalculationAPP.Model.CalculatorModel;
+import com.CalculationAPP.CalculationAPP.entities.CalculatorModel;
 import org.springframework.stereotype.Service;
 
 
 import java.util.Objects;
 
-
 @Service
-public class CalculatorService {
+public class CalculatorService implements CalculatorServiceInterface {
 
     private final CalculatorModel calcModel;
     private final CalculatorModel calculatorModel;
@@ -39,7 +38,7 @@ public class CalculatorService {
                 break;
             case "/":
                 if ((calcModel.getY() == 0)) {
-                    calcModel.setResult("Cannot divide by zero");
+                    calcModel.setResult("Can't divide by zero");
                 }
                 else {
                     calcModel.setResult(String.valueOf(calcModel.getX() / calcModel.getY()));
@@ -95,7 +94,7 @@ public class CalculatorService {
         }
     }
 
-    private Integer findSymbol(String numbers) {
+    public Integer findSymbol(String numbers) {
 
         String[] numbersArray = numbers.split(" ");
 
@@ -127,7 +126,7 @@ public class CalculatorService {
         return -1;
     }
 
-    private void formatResult() {
+    public void formatResult() {
         try {
             if (calcModel.getResult() == null || calcModel.getResult().isEmpty()) {
                 calcModel.setResult("");
@@ -180,12 +179,22 @@ public class CalculatorService {
 
     public boolean checkValidInput(String springAns) {
         String operatorRegex = "[+\\-/%x]";
-        String doubleIntRegex = "-?[0-9]\\d*|0|^[+-]?(([0-9]\\d*)|0)(\\.\\d+)?";
+        String[] input = springAns.split(" ");
 
+        try {
+            if (input.length == 1) {
+                return Double.parseDouble(input[0]) >= 0 || Double.parseDouble(input[0]) <= 0;
+            }
+            else if (input.length == 2) {
+                return Double.parseDouble(input[0]) >= 0 || Double.parseDouble(input[0]) <= 0 && input[1].matches(operatorRegex);
+            }
+            return Double.parseDouble(input[0]) >= 0 || Double.parseDouble(input[0]) <= 0 && input[1].matches(operatorRegex) && Double.parseDouble(input[2]) >= 0 || Double.parseDouble(input[2]) <= 0;
 
-        return springAns.matches(doubleIntRegex + " " + operatorRegex + " " + doubleIntRegex + " ") ||
-                springAns.matches(doubleIntRegex + " " + operatorRegex + " ") ||
-                springAns.matches(doubleIntRegex);
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid input");
+        }
+
+        return false;
     }
 
 }

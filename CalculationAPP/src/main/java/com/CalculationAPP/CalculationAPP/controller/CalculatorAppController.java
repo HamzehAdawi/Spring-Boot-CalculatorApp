@@ -1,21 +1,19 @@
-package com.CalculationAPP.CalculationAPP.Controller;
+package com.CalculationAPP.CalculationAPP.controller;
 
-import com.CalculationAPP.CalculationAPP.Model.CalculatorModel;
-import com.CalculationAPP.CalculationAPP.Service.CalculatorService;
+import com.CalculationAPP.CalculationAPP.entities.CalculatorModel;
+import com.CalculationAPP.CalculationAPP.service.CalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
 @Controller
 public class CalculatorAppController {
 
-
     private final CalculatorService calculatorService;
     private final CalculatorModel calculatorModel;
-
-
 
    @Autowired
     public CalculatorAppController(CalculatorService calculatorService, CalculatorModel calculatorModel) {
@@ -60,8 +58,12 @@ public class CalculatorAppController {
             return "redirect:/?stringNums=" + calculatorModel.getResult();
 
         }
-
         return "index";
+    }
 
+    @ExceptionHandler(NumberFormatException.class)
+    public ResponseEntity<?> handleNumberFormatException(NumberFormatException ex) {
+        String errorMessage = "Invalid number format: " + ex.getMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }
